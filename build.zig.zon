@@ -1,0 +1,5 @@
+.{
+    .name = "ziglog",
+    .version = "0.0.0",
+    .paths = .{"."},
+}

@@ -2,17 +2,18 @@ const std = @import("std");
 const testing = std.testing;
 const formatter = @import("ziglog").formatter;
 const logging = @import("ziglog").logging;
-const utils = @import("utils.zig");
 
-test "formatter" {
-    const f = formatter.Formatter.init(.{});
+test "custom format string" {
+    const f = formatter.Formatter.init(.{
+        .format_string = "log ({level}): {message}",
+    });
 
     const res = try f.format(
-        logging.LogLevel.debug,
-        "hello",
+        logging.LogLevel.err,
+        "ZigLog is the best",
     );
 
-    const expected = "[DEBUG] hello";
+    const expected = "log (ERROR): ZigLog is the best";
 
     try testing.expectEqualStrings(
         expected,

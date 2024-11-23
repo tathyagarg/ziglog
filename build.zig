@@ -1,7 +1,7 @@
 const std = @import("std");
 
-pub fn build(b: *std.Build) void {
-    const mod = b.addModule("ziglog", .{ .root_source_file = b.path("ziglog.zig") });
+pub fn build(b: *std.Build) !void {
+    const mod = b.addModule("ziglog", .{ .root_source_file = b.path("ziglog/src/root.zig") });
 
     const opt = b.standardOptimizeOption(.{});
     const tar = b.standardTargetOptions(.{});

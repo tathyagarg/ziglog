@@ -12,10 +12,18 @@ fn dir_exists(src: []const u8) bool {
 }
 
 pub fn main() !void {
-    const logger = try ziglog.Logger.get(.{
+    // Initialize the logger that logs to a file
+    _ = try ziglog.Logger.get(.{
+        .name = "main",
         .format_string = "[{level}] {message}",
         .sink = .file,
-        .file_path = "logs.txt",
+        .file_path = "logs.log",
+    });
+
+    const critical_logger = try ziglog.Logger.get(.{
+        .name = "crit",
+        .format_string = "[{level}] {message}",
+        .sink = .console,
     });
 
     const args = try std.process.argsAlloc(std.heap.page_allocator);
@@ -23,7 +31,7 @@ pub fn main() !void {
     if (args.len != 3) {
         const cmd = args[0];
 
-        try logger.err(try std.fmt.allocPrint(
+        try critical_logger.err(try std.fmt.allocPrint(
             std.heap.page_allocator,
             "Usage: {s} <src> <dest>",
             .{cmd},
@@ -38,7 +46,7 @@ pub fn main() !void {
 }
 
 fn copy_files(src: []const u8, dest: []const u8) !usize {
-    const logger = try ziglog.Logger.get(.{});
+    const logger = try ziglog.Logger.get(.{ .name = "main" });
     try logger.info(try std.fmt.allocPrint(
         std.heap.page_allocator,
         "Starting copy process from {s} to {s}",
@@ -90,7 +98,7 @@ fn copy_files(src: []const u8, dest: []const u8) !usize {
 }
 
 fn copy_file(src: []const u8, dest: []const u8) !?usize {
-    const logger = try ziglog.Logger.get(.{});
+    const logger = try ziglog.Logger.get(.{ .name = "main" });
 
     const src_file = try fs.cwd().openFile(src, .{ .mode = .read_only });
     defer src_file.close();

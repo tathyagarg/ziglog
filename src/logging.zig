@@ -1,7 +1,8 @@
+const std = @import("std");
 const sinks = @import("sink/sink.zig");
 const formatters = @import("formatter.zig");
 
-var logger_instance: ?Logger = null;
+var loggers = std.StringHashMap(Logger).init(std.heap.page_allocator);
 
 pub const LogLevel = enum { trace, debug, info, warn, err, fatal };
 pub fn log_level_to_label(log_level: LogLevel) []const u8 {
@@ -16,6 +17,7 @@ pub fn log_level_to_label(log_level: LogLevel) []const u8 {
 }
 
 const LoggerOpts = struct {
+    name: []const u8,
     default_level: LogLevel = .debug,
     sink: sinks.SinkType = .console,
     format_string: []const u8 = "{time} [{level}] {message}",
@@ -41,15 +43,13 @@ pub const Logger = struct {
     }
 
     pub fn get(options: LoggerOpts) !Self {
-        if (logger_instance != null) {
-            return logger_instance.?;
+        if (loggers.get(options.name) != null) {
+            return loggers.get(options.name).?;
         }
-        logger_instance = Logger.init(options);
-        return logger_instance.?;
-    }
+        const logger = Logger.init(options);
+        try loggers.put(options.name, logger);
 
-    pub fn reset() !void {
-        logger_instance = null;
+        return logger;
     }
 
     pub fn log(self: Self, message: []const u8) !void {

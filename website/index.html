@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>ZigLog - better logging for Zig</title>
+  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="./prism.css">
+  <link rel="icon" href="../assets/favicon.ico" type="image/x-icon">
+</head>
+
+<body>
+  <div id="header">
+    <img alt="ZigLog Logo" src="../assets/logo.png" width="200px" />
+    <h1 id="title">Log better, with ZigLog</h1>
+    <p id="desc">Features multiple loggers with customizable formatters and logging sinks.</p>
+    <div id="info">
+      <p id="version">Version 0.2.0</p>
+      <a id="installation" href="#main">Installation</a>
+    </div>
+  </div>
+  <div id="main">
+    <h1>Get Started</h1>
+    <p>To import ZigLog into your Zig project, simply add the following lines to your <code>build.zig</code> file, to
+      add ZigLog as a dependency.</p>
+    <pre><code class="language-zig">const ziglog = b.dependency("ziglog", .{
+   .target = target,
+   .optimize = optimize,
+ });
+ exe.root_module.addImport("ziglog", ziglog.module("ziglog"));</code></pre>
+  </div>
+
+  <script src="prism.js"></script>
+</body>
+
+</html>

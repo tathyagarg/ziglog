@@ -1,0 +1,88 @@
+:root {
+  --bg-color: #1E201E;
+  --accent: #f9ae3e;
+
+  --dark-bg: #181818;
+}
+
+body {
+  background-color: var(--bg-color); 
+  font-family: system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue","Noto Sans","Liberation Sans",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji"; 
+
+}
+
+*:not(code) {
+  color: white;
+}
+
+code {
+  padding: 0.2rem 0.5rem;
+  background-color: var(--dark-bg);
+}
+
+p {
+  font-size: calc(.9rem + .1vw);
+}
+
+#header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  background: linear-gradient(to bottom, var(--accent), var(--bg-color));
+}
+
+#header h1 {
+  font-size: calc(1.5rem + 3.3vw);
+  margin: 0;
+  font-weight: 600;
+}
+
+#desc {
+  font-size: calc(1.25rem + .3vw);
+  color: #cccccc;
+}
+
+#info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#version {
+  background-color: var(--dark-bg);
+  border: 1px solid #cccccc;
+  
+  padding: .8rem 2rem;
+  font-weight: 600;
+  font-size: 1.25rem;
+  border-radius: 0.5rem;
+
+  box-sizing: border-box;
+
+  margin-right: 1rem;
+}
+
+#installation {
+  background-color: var(--accent);
+  border: none;
+
+  padding: .8rem 2rem;
+  font-weight: 600;
+  font-size: 1.25rem;
+  border-radius: 0.5rem;
+
+  box-sizing: border-box;
+
+  height: fit-content;
+}
+
+#main {
+  margin-top: 5rem;
+
+  width: 75%;
+  margin-left: auto;
+  margin-right: auto;
+}
